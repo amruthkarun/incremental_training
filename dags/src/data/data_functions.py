@@ -7,10 +7,10 @@ import os
 import logging
 
 
-def decode_json(jsons_comb):
+def decode_json(json_file):
 
-    x_train = loads(jsons_comb[0])
-    y_train = loads(jsons_comb[1])
+    x_train = loads(json_file[0])
+    y_train = loads(json_file[1])
 
     return x_train, y_train
 
@@ -25,20 +25,15 @@ def get_data_from_kafka(**kwargs):
         #group_id='my-group',
         value_deserializer=lambda x: loads(x.decode('utf-8')))
 
-
     logging.info('Consumer constructed')
 
     try:
-
         xs = []
         ys = []
-
         for message in consumer:                            # loop over messages
-
             logging.info( "Offset: ", message.offset)
             message = message.value
             x, y = decode_json(message)            # decode JSON
-
             xs.append(x)
             ys.append(y)
 
@@ -48,9 +43,7 @@ def get_data_from_kafka(**kwargs):
         ys = np.array(ys).reshape(-1)                       # put ys in the right shape for our CNN
 
         new_samples = [xs, ys]
-
         pickle.dump(new_samples, open(os.getcwd()+kwargs['path_new_data']+str(time.strftime("%Y%m%d_%H%M"))+"_new_samples.p", "wb"))     # write data
-
         logging.info(str(xs.shape[0])+' new samples retrieved')
 
         consumer.close()

@@ -26,21 +26,18 @@ def update_model(**kwargs):
 	test_set = loaded[1]
 
 	# load new samples
-
 	x_new = new_samples[0]
 	y_new = new_samples[1]
 
 	y_new = keras.utils.to_categorical(y_new, kwargs['num_classes'])
 
 	# load test set
-
 	x_test = test_set[0]
 	y_test = test_set[1]
 
 	y_test = keras.utils.to_categorical(y_test, kwargs['num_classes'])
 
 	# get current_model
-
 	for file_m in os.listdir(os.getcwd()+kwargs['path_current_model']):
 		if 'H5' in file_m:
 
@@ -55,7 +52,6 @@ def update_model(**kwargs):
 				current_score = model.evaluate(x_test, y_test, verbose=0)
 
 				# update model with new data and evaluate score
-
 				model.fit(x_new, y_new,
 						  batch_size=kwargs['batch_size'],
 						  epochs=kwargs['epochs'],
@@ -65,7 +61,6 @@ def update_model(**kwargs):
 				updated_score = model.evaluate(x_test, y_test, verbose=0)
 
 				# log results to MLFlow
-
 				mlflow.log_metric('Epochs', kwargs['epochs'])
 				mlflow.log_metric('Batch size', kwargs['batch_size'])
 
@@ -102,12 +97,10 @@ def update_model(**kwargs):
 def data_to_archive(**kwargs):
 
 	# store data that was used for updating the model in archive along date + time tag
-
 	for file_d in os.listdir(os.getcwd()+kwargs['path_new_data']):
 		if 'new_samples.p' in file_d:
 
 			os.rename(os.getcwd()+kwargs['path_new_data'] + file_d, os.getcwd()+kwargs['path_used_data'] + file_d)
-
 			logging.info('data used for updating the model has been moved to archive')
 
 		else:

@@ -11,7 +11,7 @@ INITIAL_MODEL_PATH = "/models/current_model/initial_model.H5"
 
 BATCH_SIZE = 128
 NUM_CLASSES = 10
-EPOCHS = 4
+EPOCHS = 5
 
 args = {
     'owner': 'airflow',
@@ -23,7 +23,7 @@ dag = DAG(
     dag_id='initial_model_DAG',
     default_args=args,
     schedule_interval= '@once',             # set interval
-	catchup=False,                          # indicate whether or not Airflow should do any runs for intervals between the start_date and the current date that haven't been run thus far
+	catchup=False,                          # indicate whether Airflow should do any runs for intervals between the start_date and the current date that haven't been run thus far
 )
 
 

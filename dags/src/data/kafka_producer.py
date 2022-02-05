@@ -10,9 +10,9 @@ from json import dumps
 def encode_to_json(x_train, y_train):
 	x = dumps(x_train.tolist())
 	y = dumps(y_train.tolist())
-	jsons_comb = [x, y]
+	json_file = [x, y]
 
-	return jsons_comb
+	return json_file
 
 def generate_stream(**kwargs):
 
@@ -29,8 +29,8 @@ def generate_stream(**kwargs):
 	logging.info('Partitions: ', producer.partitions_for('MLTopic'))
 
 	for i in rand:
-		json_comb = encode_to_json(x_new[i], y_new[i])                                         # pick observation and encode to JSON
-		producer.send('MLTopic', value=json_comb)                                               # send encoded observation to Kafka topic
+		json_file = encode_to_json(x_new[i], y_new[i])                                         # pick observation and encode to JSON
+		producer.send('MLTopic', value=json_file)                                              # send encoded observation to Kafka topic
 		logging.info("Sent number: {}".format(y_new[i]))
 		sleep(1)
 

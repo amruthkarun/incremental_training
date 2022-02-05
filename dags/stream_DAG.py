@@ -18,7 +18,7 @@ dag = DAG(
     dag_id='stream_DAG',
     default_args=args,
     schedule_interval= '@hourly',      # set interval
-	catchup=False,                     # indicate whether or not Airflow should do any runs for intervals between the start_date and the current date that haven't been run thus far
+	catchup=False,                     # indicate whether Airflow should do any runs for intervals between the start_date and the current date that haven't been run thus far
 )
 
 
