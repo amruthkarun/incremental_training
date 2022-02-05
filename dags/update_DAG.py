@@ -9,7 +9,7 @@ from src.models.update_functions import load_current_model, update_model, data_t
 from src.preprocessing.preprocessing_functions import preprocessing
 
 CLIENT = 'kafka:9092'
-TOPIC = 'TopicA'
+TOPIC = 'MLTopic'
 
 PATH_NEW_DATA = '/data/to_use_for_model_update/'
 PATH_USED_DATA = '/data/used_for_model_update/'

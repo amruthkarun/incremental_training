@@ -26,11 +26,11 @@ def generate_stream(**kwargs):
 	x_new = stream_sample[0]
 	y_new = stream_sample[1]
 
-	logging.info('Partitions: ', producer.partitions_for('TopicA'))
+	logging.info('Partitions: ', producer.partitions_for('MLTopic'))
 
 	for i in rand:
 		json_comb = encode_to_json(x_new[i], y_new[i])                                         # pick observation and encode to JSON
-		producer.send('TopicA', value=json_comb)                                               # send encoded observation to Kafka topic
+		producer.send('MLTopic', value=json_comb)                                               # send encoded observation to Kafka topic
 		logging.info("Sent number: {}".format(y_new[i]))
 		sleep(1)
 
